@@ -2,17 +2,13 @@
 
 # Proyecto BBDD — Escuela de Bootcamps
 
-<<<<<<< HEAD
 **Base de datos relacional normalizada en 3FN, desplegada en la nube.**
 
 Diseñada a partir de los datos sin normalizar de alumnos y claustro
 de una escuela de bootcamps (Data Science y Full Stack).
-=======
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
 <br>
 
-<<<<<<< HEAD
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-Cloud-46E3B7?style=for-the-badge&logo=render&logoColor=black)
 ![pgAdmin](https://img.shields.io/badge/pgAdmin-4-326690?style=for-the-badge&logo=postgresql&logoColor=white)
@@ -45,25 +41,13 @@ de una escuela de bootcamps (Data Science y Full Stack).
 | 10 | [Bugfix — errores y soluciones](bugfix/) |
 
 ---
-=======
-- Diagrama entidad-relación
-- Diagrama del modelo lógico
-- Script de creación de tablas
-- Script de carga de datos
-- Consultas de demostración
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
 ## Decisiones de modelado
 
 > Esta fue la **primera** fase del proyecto y la que condicionó todo lo demás:
 > los scripts, las consultas y la escalabilidad salen directamente de aquí.
 
-<<<<<<< HEAD
 ### El punto de partida
-=======
-- `clase_1.csv` … `clase_4.csv`: 52 alumnos, con el resultado (Apto / No Apto) de sus 5 proyectos.
-- `claustro.csv`: 10 docentes, con su rol (TA / LI), vertical (especialidad), promoción (promo), campus y modalidad.
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
 Los datos de entrada eran **una sola tabla plana**, una fila por alumno:
 
@@ -72,31 +56,16 @@ Los datos de entrada eran **una sola tabla plana**, una fila por alumno:
 | Jafet Casals | Jafet_Casals@gmail.com | Septiembre | 18/09/2023 | Madrid | Apto | No Apto | … |
 | Jorge Manzanares | Jorge_Manzanares@gmail.com | Septiembre | 18/09/2023 | Madrid | Apto | No Apto | … |
 
-<<<<<<< HEAD
 Tres problemas evidentes:
-=======
-| Tipo | Tablas |
-|---|---|
-| Catálogos | `especialidad`, `promo`, `campus` |
-| Entidades | `clase` (especialidad + promo + campus), `proyecto`, `alumno`, `docente` |
-| Relaciones N:M | `hace` (alumno × proyecto → `apto`) · `asignado` (docente × clase → `rol`, `modalidad`) |
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
 1. **Redundancia.** `Septiembre`, `18/09/2023` y `Madrid` se repiten en cada una de las 52 filas.
 2. **Grupos repetidos.** Las 5 columnas `Proyecto_*` son la misma información repetida cinco veces.
 3. **Anomalías de actualización.** Corregir la fecha de una promoción obligaría a tocar decenas de filas, y un fallo en una sola dejaría la base de datos incoherente.
 
-<<<<<<< HEAD
 A partir de ahí se tomaron siete decisiones.
-=======
-- **1FN:** las columnas `Proyecto_*` de los CSV pasan a ser filas de la tabla `hace`.
-- **2FN:** en las tablas con clave compuesta, cada dato depende de la clave completa. Por ejemplo, `apto` depende del alumno **y** del proyecto.
-- **3FN:** sin dependencias transitivas. Por ejemplo, fecha_comienzo depende de la promoción, no del alumno, así que se guarda una sola vez en `promo` y el alumno solo guarda `id_clase`.
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
 ### Visión general del modelo
 
-<<<<<<< HEAD
 ```mermaid
 erDiagram
     ESPECIALIDAD ||--o{ CLASE : "1:N"
@@ -106,13 +75,6 @@ erDiagram
     ESPECIALIDAD ||--o{ PROYECTO : "1:N"
     ALUMNO }o--o{ PROYECTO : "N:M via hace"
     DOCENTE }o--o{ CLASE : "N:M via asignado"
-=======
-1. Crear un proyecto PostgreSQL en [Supabase](https://supabase.com) (también vale Render u otro servidor PostgreSQL).
-2. En el **SQL Editor**, ejecutar en este orden:
-   1. `querysCreateTables.sql`
-   2. `querysInsertData.sql`
-3. Probar las consultas de demostración (capturas `demostracion1.png`, `demostracion2.png` y `demostracion3.png`).
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
     ESPECIALIDAD {
         int id_especialidad PK
@@ -161,11 +123,7 @@ erDiagram
     }
 ```
 
-<<<<<<< HEAD
 <br>
-=======
-> ⚠️ Las credenciales de la base de datos **no se suben a este repositorio**. 
->>>>>>> 24b3b1df0dbbe51347bdb269294429422f61f9d5
 
 ### 1 · `clase` como entidad central
 
